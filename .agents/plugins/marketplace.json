@@ -1,7 +1,7 @@
 {
-  "name": "tracht-digital-plugins",
+  "name": "chatgpt-plugin-marketplace",
   "interface": {
-    "displayName": "Tracht Digital · ChatGPT Plugins"
+    "displayName": "ChatGPT Plugin Marketplace"
   },
   "plugins": [
     {
