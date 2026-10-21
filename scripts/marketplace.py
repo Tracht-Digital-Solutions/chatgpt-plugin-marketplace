@@ -97,6 +97,8 @@ def config_sources(config, api):
             # An explicit source (first) wins over topic discovery.
             continue
         unique[key] = normalized
+    for repository in config.get("exclude", []):
+        unique = {key: s for key, s in unique.items() if key[0] != repository.lower()}
     require(bool(unique), "No plugin sources configured or discovered")
     return sorted(unique.values(), key=lambda s: (s["repository"].lower(), s["path"]))
 

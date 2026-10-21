@@ -174,6 +174,14 @@ class CollectorTests(unittest.TestCase):
         config = dict(CONFIG, sources=[], discovery={'owners': ['jtracht']})
         self.assertEqual(m.config_sources(config, PagedAPI()), [SOURCE])
 
+    def test_exclude_removes_discovered_repository(self):
+        config = dict(CONFIG, sources=[], exclude=['jtracht/Unwanted'], discovery={'owners': ['jtracht']})
+        self.api.repos = [
+            {'full_name': SOURCE['repository'], 'topics': ['chatgpt-plugin']},
+            {'full_name': 'jtracht/unwanted', 'topics': ['chatgpt-plugin']},
+        ]
+        self.assertEqual(m.config_sources(config, self.api), [SOURCE])
+
     def test_invalid_config_path_rejected(self):
         for path in ('../escape', '/absolute', 'a\\b', 'C:/escape', 'CON/file', 'trailing./file'):
             with self.subTest(path=path), self.assertRaises(ValueError):

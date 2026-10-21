@@ -1,10 +1,10 @@
-# Tracht Digital · ChatGPT Plugin Marketplace
+# ChatGPT Plugin Marketplace
 
 Ein zentraler GitHub-Marktplatz für die ChatGPT-/Codex-Plugins von Julian Tracht. GitHub Actions führt stabile Plugin-Releases automatisch zu einem nativen Katalog zusammen.
 
 **Ziel-Repository:** `jtracht/chatgpt-plugin-marketplace`.
 
-**Vorbereiteter Stand:** Das Projekt ist lokal geprüft. Das Ziel-Repository und die GitHub-Actions-Läufe sind noch nicht angelegt bzw. ausgeführt. Der initiale Katalog enthält einen Git-Verweis auf Gitea for ChatGPT v0.3.2; der erste erfolgreiche Sync bündelt die vollständigen Plugin-Dateien. Diesen Abschnitt nach erfolgreicher Veröffentlichung entsprechend aktualisieren.
+Gegenstück zum [Claude Code Plugin Marketplace](https://github.com/jtracht/claude-plugin-marketplace): gleiche Discovery per Topic, gleiche Auslöser und gleicher `DISPATCH_TOKEN`.
 
 ## Einmalig veröffentlichen
 
@@ -24,9 +24,16 @@ Alternativ ein leeres öffentliches Repository namens `chatgpt-plugin-marketplac
 - **Alle sechs Stunden:** Neueste veröffentlichte stabile Releases abrufen.
 - **Bei Änderungen an Konfiguration oder Collector:** Sofort synchronisieren.
 - **Manuell:** Actions → Sync plugin marketplace → Run workflow.
-- **Optional sofort nach einem Plugin-Release:** Ein `repository_dispatch` mit Typ `plugin-release` an dieses Repository senden. Das regelmäßige Polling benötigt kein zusätzliches Secret.
+- **Sofort nach einem Plugin-Release:** Das Plugin-Repo sendet ein `repository_dispatch` mit Typ `plugin-updated` (Secret `DISPATCH_TOKEN`, Fine-grained PAT mit *Contents: read & write* auf dieses Repository):
 
-Quellen werden in `marketplace.config.json` festgelegt. Zusätzlich durchsucht die Pipeline die öffentlichen Repositories von `jtracht` und `Tracht-Digital-Solutions` nach dem Topic `chatgpt-plugin`. Sie ignoriert Forks und archivierte Repositories. Neue passende Repositories werden automatisch übernommen; das Topic deshalb nur für Plugins setzen, die veröffentlicht werden sollen.
+  ```yaml
+  - name: Notify marketplace
+    run: gh api repos/jtracht/chatgpt-plugin-marketplace/dispatches -f event_type=plugin-updated
+    env:
+      GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+  ```
+
+Quellen werden in `marketplace.config.json` festgelegt. Zusätzlich durchsucht die Pipeline die öffentlichen Repositories von `jtracht` und `Tracht-Digital-Solutions` nach dem Topic `chatgpt-plugin`. Sie ignoriert Forks und archivierte Repositories. Neue passende Repositories werden automatisch übernommen; das Topic deshalb nur für Plugins setzen, die veröffentlicht werden sollen. Über `exclude` in `marketplace.config.json` lassen sich gefundene Repositories ausschließen.
 
 Für neue Plugins:
 
@@ -61,10 +68,10 @@ Nach erfolgreicher Veröffentlichung:
 
 ```bash
 codex plugin marketplace add jtracht/chatgpt-plugin-marketplace --ref main
-codex plugin marketplace upgrade tracht-digital-plugins
+codex plugin marketplace upgrade chatgpt-plugin-marketplace
 ```
 
-Danach in der ChatGPT-Desktop-App das Plugin-Verzeichnis öffnen und den Marktplatz **Tracht Digital · ChatGPT Plugins** wählen. Verfügbarkeit und Installation hängen vom Client und den Kontoregeln ab.
+Danach in der ChatGPT-Desktop-App das Plugin-Verzeichnis öffnen und den Marktplatz **ChatGPT Plugin Marketplace** wählen. Verfügbarkeit und Installation hängen vom Client und den Kontoregeln ab.
 
 Workspace-Administratoren können in **Admin Console → Plugins → Add → Import marketplace** die Repository-URL `https://github.com/jtracht/chatgpt-plugin-marketplace` importieren. **Path** bleibt leer; für fortlaufende Updates Branch `main` wählen. Die Workspace-Synchronisierung ist ein separater Schritt: Sie läuft laut OpenAI standardmäßig täglich oder kann über **Sync now** angestoßen werden. Ein GitHub-Sync erzwingt keine sofortige Aktualisierung in ChatGPT. Repository-Policies ersetzen keine Workspace-Berechtigungen.
 

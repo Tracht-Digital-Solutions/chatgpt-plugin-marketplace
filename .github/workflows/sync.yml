@@ -5,7 +5,7 @@ on:
     - cron: '23 */6 * * *'
   workflow_dispatch:
   repository_dispatch:
-    types: [plugin-release]
+    types: [plugin-updated]
   push:
     branches: [main]
     paths:
