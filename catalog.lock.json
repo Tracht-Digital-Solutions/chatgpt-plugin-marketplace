@@ -3,11 +3,11 @@
   "plugins": [
     {
       "name": "gitea-chatgpt-plugin",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "repository": "jtracht/gitea-chatgpt-plugin",
       "path": "plugin",
-      "tag": "v0.3.2",
-      "commit": "1d40293b6288f133d284763a90ecdd275f375285",
+      "tag": "v0.3.3",
+      "commit": "f6b39873a7628defdaa04084cc4abc86ac81aab7",
       "executables": [],
       "files": {
         "UPSTREAM_LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
@@ -16,7 +16,7 @@
         "assets/icon.svg": "b4841a700509de66b5689ec87f6df52260c8706b58cbc8066f935a70b301fac1",
         "assets/portal.css": "38be1782d102345146da33cfed40798e684f4458ce4b9fa85f20a731edf5e3e7",
         "mcp.json": "3425821c6eb3888f4071050ae88278db4b3bd2f9b5295f27105439c42be9b9aa",
-        "plugin.json": "254dc8a048ddae0e51436df003c0b05b1f20f719154ee2d9d6a24d073dcad46d",
+        "plugin.json": "685ed3110f471fb990faab0f42594b38f6cd056aa087e6d5899d314982ec9040",
         "skills/gitea-workflow/SKILL.md": "4c86b42e694dfccd09b5a4b85a0a0c6a01aaf617e0491ba98a41c150c140a3ba"
       }
     }
