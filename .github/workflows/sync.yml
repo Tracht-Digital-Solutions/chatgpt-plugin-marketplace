@@ -38,7 +38,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Collect stable public releases
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
         run: python scripts/marketplace.py sync
       - name: Verify assembled marketplace and checksums
         run: python scripts/marketplace.py validate

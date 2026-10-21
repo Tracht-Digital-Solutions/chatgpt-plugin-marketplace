@@ -53,7 +53,7 @@ Der Collector führt keinen Plugin-Code und keine Installationsskripte aus. Er p
 
 Keine Änderungen bedeuten keinen neuen Commit. Fehler beim Abruf eines Plugins veröffentlichen keinen unvollständigen Katalog. Gelöschte Quellen verschwinden bei der nächsten erfolgreichen vollständigen Zusammenführung. Entfernen aus `sources` allein reicht nicht, wenn das Repository weiterhin per Topic gefunden wird.
 
-Die Standardpipeline benötigt nur das kurzlebige `GITHUB_TOKEN` mit `contents: write` für dieses Repository. Sie kopiert ausschließlich öffentlich lesbare Quellen. Geschützte Branches oder Organisationsregeln können direkte Bot-Commits ablehnen; dann scheitert der Push sichtbar, und es muss ein geeigneter PR-Prozess konfiguriert werden. GitHub kann geplante Läufe verzögern oder bei längerer Inaktivität deaktivieren.
+Die Pipeline ruft die Plugin-Repositories mit dem Secret `DISPATCH_TOKEN` ab; Commit und Push laufen über das kurzlebige `GITHUB_TOKEN` mit `contents: write` für dieses Repository. Sie kopiert ausschließlich öffentlich lesbare Quellen. Geschützte Branches oder Organisationsregeln können direkte Bot-Commits ablehnen; dann scheitert der Push sichtbar, und es muss ein geeigneter PR-Prozess konfiguriert werden. GitHub kann geplante Läufe verzögern oder bei längerer Inaktivität deaktivieren.
 
 ## Marktplatz verwenden
 
