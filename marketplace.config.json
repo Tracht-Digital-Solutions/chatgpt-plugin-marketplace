@@ -1,0 +1,12 @@
+{
+  "name": "tracht-digital-plugins",
+  "displayName": "Tracht Digital · ChatGPT Plugins",
+  "sources": [
+    {"repository": "jtracht/gitea-chatgpt-plugin", "path": "plugin"}
+  ],
+  "discovery": {
+    "owners": ["jtracht", "Tracht-Digital-Solutions"],
+    "topic": "chatgpt-plugin",
+    "path": "plugin"
+  }
+}

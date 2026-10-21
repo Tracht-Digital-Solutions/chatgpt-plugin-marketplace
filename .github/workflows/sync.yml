@@ -1,0 +1,56 @@
+name: Sync plugin marketplace
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [plugin-release]
+  push:
+    branches: [main]
+    paths:
+      - marketplace.config.json
+      - scripts/marketplace.py
+      - .github/workflows/sync.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketplace-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Check collector before publication
+        run: python -m unittest discover -s tests -v
+      - name: Collect stable public releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/marketplace.py sync
+      - name: Verify assembled marketplace and checksums
+        run: python scripts/marketplace.py validate
+      - name: Publish one complete catalog commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- .agents/plugins/marketplace.json plugins catalog.lock.json CATALOG.md
+          if git diff --cached --quiet; then
+            echo 'Marketplace is already up to date.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'chore(marketplace): sync stable plugin releases'
+          git push
+          echo 'Marketplace updated; source commits and SHA-256 hashes are recorded in catalog.lock.json.' >> "$GITHUB_STEP_SUMMARY"

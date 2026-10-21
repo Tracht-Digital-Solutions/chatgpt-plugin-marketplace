@@ -1,0 +1,14 @@
+{
+  "format": 1,
+  "plugins": [
+    {
+      "name": "gitea-chatgpt-plugin",
+      "version": "0.3.2",
+      "repository": "jtracht/gitea-chatgpt-plugin",
+      "path": "plugin",
+      "tag": "v0.3.2",
+      "commit": "1d40293b6288f133d284763a90ecdd275f375285",
+      "bootstrap": true
+    }
+  ]
+}
