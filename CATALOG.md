@@ -4,4 +4,4 @@ Automatisch aus veröffentlichten stabilen Releases erzeugt. Eigene MCP-Server k
 
 | Plugin | Version | Herkunft |
 | --- | --- | --- |
-| gitea-chatgpt-plugin | 0.3.3 | [jtracht/gitea-chatgpt-plugin @ f6b39873a762](https://github.com/jtracht/gitea-chatgpt-plugin/tree/f6b39873a7628defdaa04084cc4abc86ac81aab7) |
+| gitea-chatgpt-plugin | 0.4.0 | [jtracht/gitea-chatgpt-plugin @ 08789330e830](https://github.com/jtracht/gitea-chatgpt-plugin/tree/08789330e830b2cbb5104c7d4bccd64dc03add92) |
