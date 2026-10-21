@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "gitea": {
+      "type": "streamable-http",
+      "url": "https://{host}/mcp",
+      "extensions": {
+        "com.openai": {
+          "urlTemplates": ["https://{host}/mcp"],
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "provided",
+              "clientId": "gitea-chatgpt",
+              "tokenEndpointAuthMethod": "none"
+            },
+            "baseScopes": ["gitea.read"],
+            "defaultScopes": ["gitea.read", "gitea.write"]
+          }
+        }
+      }
+    }
+  }
+}

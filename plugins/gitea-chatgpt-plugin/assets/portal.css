@@ -1,0 +1,79 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  color: #173e35;
+  background: #f2f7f4;
+}
+body {
+  max-width: 780px;
+  margin: 48px auto;
+  padding: 0 24px 48px;
+  line-height: 1.6;
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+  font-weight: 650;
+}
+header img {
+  border-radius: 12px;
+}
+h1 {
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+form,
+pre {
+  padding: 20px;
+  border: 1px solid #b8cec4;
+  border-radius: 12px;
+  background: #fff;
+  margin: 20px 0;
+}
+pre {
+  overflow: auto;
+  font-size: 0.875rem;
+}
+label {
+  display: block;
+  margin: 12px 0;
+}
+input,
+select,
+button {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 10px 14px;
+  font: inherit;
+  border: 1px solid #76988a;
+  border-radius: 8px;
+}
+button {
+  cursor: pointer;
+  color: #fff;
+  background: #205c45;
+  margin: 8px 4px 8px 0;
+}
+a {
+  color: #205c45;
+}
+:focus-visible {
+  outline: 3px solid #438cdb;
+  outline-offset: 3px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #e1f1e9;
+    background: #10231f;
+  }
+  form,
+  pre {
+    background: #19362e;
+    border-color: #527767;
+  }
+  a {
+    color: #9aebbc;
+  }
+}

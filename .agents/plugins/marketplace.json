@@ -1,16 +1,19 @@
 {
   "name": "tracht-digital-plugins",
-  "interface": {"displayName": "Tracht Digital · ChatGPT Plugins"},
+  "interface": {
+    "displayName": "Tracht Digital · ChatGPT Plugins"
+  },
   "plugins": [
     {
       "name": "gitea-chatgpt-plugin",
       "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/jtracht/gitea-chatgpt-plugin.git",
-        "path": "./plugin",
-        "sha": "1d40293b6288f133d284763a90ecdd275f375285"
+        "source": "local",
+        "path": "./plugins/gitea-chatgpt-plugin"
       },
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Productivity"
     }
   ]
