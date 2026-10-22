@@ -2,9 +2,9 @@
 
 Ein zentraler GitHub-Marktplatz für die ChatGPT-/Codex-Plugins von Julian Tracht. GitHub Actions führt stabile Plugin-Releases automatisch zu einem nativen Katalog zusammen.
 
-**Ziel-Repository:** `jtracht/chatgpt-plugin-marketplace`.
+**Ziel-Repository:** `Tracht-Digital-Solutions/chatgpt-plugin-marketplace`.
 
-Gegenstück zum [Claude Code Plugin Marketplace](https://github.com/jtracht/claude-plugin-marketplace): gleiche Discovery per Topic, gleiche Auslöser und gleicher `DISPATCH_TOKEN`.
+Gegenstück zum [Claude Code Plugin Marketplace](https://github.com/Tracht-Digital-Solutions/claude-plugin-marketplace): gleiche Discovery per Topic, gleiche Auslöser und gleicher `DISPATCH_TOKEN`.
 
 ## Einmalig veröffentlichen
 
@@ -15,9 +15,9 @@ gh auth login
 .\setup-github.ps1
 ```
 
-Das Skript prüft das Konto `jtracht`, führt die Tests aus, erstellt das öffentliche Repository und pusht den initialen Commit. Es überschreibt kein bestehendes GitHub-Repository. Nach dem Push startet **Actions → Sync plugin marketplace** automatisch. Bei fehlender Anmeldung wird abgebrochen; Tokens werden nicht in Projektdateien geschrieben.
+Das Skript prüft die Admin-Mitgliedschaft in der Organisation `Tracht-Digital-Solutions`, führt die Tests aus, erstellt das öffentliche Repository und pusht den initialen Commit. Es überschreibt kein bestehendes GitHub-Repository. Nach dem Push startet **Actions → Sync plugin marketplace** automatisch. Bei fehlender Anmeldung wird abgebrochen; Tokens werden nicht in Projektdateien geschrieben.
 
-Alternativ ein leeres öffentliches Repository namens `chatgpt-plugin-marketplace` unter `jtracht` anlegen und den Projektinhalt dorthin pushen. Keine fremden Geheimnisse oder privaten Plugin-Quellen hinzufügen.
+Alternativ ein leeres öffentliches Repository namens `chatgpt-plugin-marketplace` unter `Tracht-Digital-Solutions` anlegen und den Projektinhalt dorthin pushen. Keine fremden Geheimnisse oder privaten Plugin-Quellen hinzufügen.
 
 ## Automatische Zusammenführung
 
@@ -28,12 +28,12 @@ Alternativ ein leeres öffentliches Repository namens `chatgpt-plugin-marketplac
 
   ```yaml
   - name: Notify marketplace
-    run: gh api repos/jtracht/chatgpt-plugin-marketplace/dispatches -f event_type=plugin-updated
+    run: gh api repos/Tracht-Digital-Solutions/chatgpt-plugin-marketplace/dispatches -f event_type=plugin-updated
     env:
       GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
   ```
 
-Quellen werden in `marketplace.config.json` festgelegt. Zusätzlich durchsucht die Pipeline die öffentlichen Repositories von `jtracht` und `Tracht-Digital-Solutions` nach dem Topic `chatgpt-plugin`. Sie ignoriert Forks und archivierte Repositories. Neue passende Repositories werden automatisch übernommen; das Topic deshalb nur für Plugins setzen, die veröffentlicht werden sollen. Über `exclude` in `marketplace.config.json` lassen sich gefundene Repositories ausschließen.
+Quellen werden in `marketplace.config.json` festgelegt. Zusätzlich durchsucht die Pipeline die öffentlichen Repositories von `Tracht-Digital-Solutions` nach dem Topic `chatgpt-plugin`. Sie ignoriert Forks und archivierte Repositories. Neue passende Repositories werden automatisch übernommen; das Topic deshalb nur für Plugins setzen, die veröffentlicht werden sollen. Über `exclude` in `marketplace.config.json` lassen sich gefundene Repositories ausschließen.
 
 Für neue Plugins:
 
@@ -42,7 +42,7 @@ Für neue Plugins:
 3. Das GitHub-Topic `chatgpt-plugin` setzen. Bei anderem Plugin-Pfad das Repository explizit in `sources` eintragen.
 
 ```json
-{"repository": "jtracht/mein-plugin", "path": "plugin"}
+{"repository": "Tracht-Digital-Solutions/mein-plugin", "path": "plugin"}
 ```
 
 Für ein Plugin am Repository-Root `"path": "."` nutzen. Für eine festgehaltene Release-Version zusätzlich `"tag": "v1.2.3"` setzen. Explizite Quellen haben Vorrang vor der automatischen Erkennung. Claude-Code-Plugins werden nicht automatisch als ChatGPT-Plugins behandelt.
@@ -67,17 +67,17 @@ Die Pipeline ruft die Plugin-Repositories mit dem Secret `DISPATCH_TOKEN` ab; Co
 Nach erfolgreicher Veröffentlichung:
 
 ```bash
-codex plugin marketplace add jtracht/chatgpt-plugin-marketplace --ref main
+codex plugin marketplace add Tracht-Digital-Solutions/chatgpt-plugin-marketplace --ref main
 codex plugin marketplace upgrade chatgpt-plugin-marketplace
 ```
 
 Danach in der ChatGPT-Desktop-App das Plugin-Verzeichnis öffnen und den Marktplatz **ChatGPT Plugin Marketplace** wählen. Verfügbarkeit und Installation hängen vom Client und den Kontoregeln ab.
 
-Workspace-Administratoren können in **Admin Console → Plugins → Add → Import marketplace** die Repository-URL `https://github.com/jtracht/chatgpt-plugin-marketplace` importieren. **Path** bleibt leer; für fortlaufende Updates Branch `main` wählen. Die Workspace-Synchronisierung ist ein separater Schritt: Sie läuft laut OpenAI standardmäßig täglich oder kann über **Sync now** angestoßen werden. Ein GitHub-Sync erzwingt keine sofortige Aktualisierung in ChatGPT. Repository-Policies ersetzen keine Workspace-Berechtigungen.
+Workspace-Administratoren können in **Admin Console → Plugins → Add → Import marketplace** die Repository-URL `https://github.com/Tracht-Digital-Solutions/chatgpt-plugin-marketplace` importieren. **Path** bleibt leer; für fortlaufende Updates Branch `main` wählen. Die Workspace-Synchronisierung ist ein separater Schritt: Sie läuft laut OpenAI standardmäßig täglich oder kann über **Sync now** angestoßen werden. Ein GitHub-Sync erzwingt keine sofortige Aktualisierung in ChatGPT. Repository-Policies ersetzen keine Workspace-Berechtigungen.
 
 Dieser eigene Marktplatz ist unabhängig vom universellen öffentlichen OpenAI-Plugin-Verzeichnis. Der GitHub-Push reicht dort keine Plugins ein.
 
-**Gitea for ChatGPT:** Das Plugin enthält die Vorlage `https://{host}/mcp`. Vor der Nutzung einen eigenen HTTPS-MCP-Server und OAuth einrichten und den Host gemäß [Plugin-Installationsanleitung](https://github.com/jtracht/gitea-chatgpt-plugin/blob/main/docs/de/SCHRITT-FUER-SCHRITT.md) konfigurieren. Der Marktplatz stellt keinen Gitea-MCP-Dienst bereit. Eine erfolgreiche Katalogprüfung belegt keine funktionierende OAuth-Verbindung.
+**Gitea for ChatGPT:** Das Plugin enthält die Vorlage `https://{host}/mcp`. Vor der Nutzung einen eigenen HTTPS-MCP-Server und OAuth einrichten und den Host gemäß [Plugin-Installationsanleitung](https://github.com/Tracht-Digital-Solutions/gitea-chatgpt-plugin/blob/main/docs/de/SCHRITT-FUER-SCHRITT.md) konfigurieren. Der Marktplatz stellt keinen Gitea-MCP-Dienst bereit. Eine erfolgreiche Katalogprüfung belegt keine funktionierende OAuth-Verbindung.
 
 ## Prüfungen und Releases
 
