@@ -4,7 +4,7 @@
   "sources": [],
   "exclude": [],
   "discovery": {
-    "owners": ["Tracht-Digital-Solutions", "jtracht"],
+    "owners": ["Tracht-Digital-Solutions"],
     "topic": "chatgpt-plugin",
     "path": "plugin"
   }

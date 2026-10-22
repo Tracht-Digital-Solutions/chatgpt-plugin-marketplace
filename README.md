@@ -33,7 +33,7 @@ Alternativ ein leeres öffentliches Repository namens `chatgpt-plugin-marketplac
       GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
   ```
 
-Quellen werden in `marketplace.config.json` festgelegt. Zusätzlich durchsucht die Pipeline die öffentlichen Repositories von `Tracht-Digital-Solutions` und `jtracht` nach dem Topic `chatgpt-plugin`. Sie ignoriert Forks und archivierte Repositories. Neue passende Repositories werden automatisch übernommen; das Topic deshalb nur für Plugins setzen, die veröffentlicht werden sollen. Über `exclude` in `marketplace.config.json` lassen sich gefundene Repositories ausschließen.
+Quellen werden in `marketplace.config.json` festgelegt. Zusätzlich durchsucht die Pipeline die öffentlichen Repositories von `Tracht-Digital-Solutions` nach dem Topic `chatgpt-plugin`. Sie ignoriert Forks und archivierte Repositories. Neue passende Repositories werden automatisch übernommen; das Topic deshalb nur für Plugins setzen, die veröffentlicht werden sollen. Über `exclude` in `marketplace.config.json` lassen sich gefundene Repositories ausschließen.
 
 Für neue Plugins:
 

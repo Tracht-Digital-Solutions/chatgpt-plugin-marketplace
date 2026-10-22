@@ -14,7 +14,7 @@ m = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(m)
 
 COMMIT = 'a' * 40
-SOURCE = {'repository': 'jtracht/example-chatgpt-plugin', 'path': 'plugin'}
+SOURCE = {'repository': 'Tracht-Digital-Solutions/example-chatgpt-plugin', 'path': 'plugin'}
 CONFIG = {'name': 'tracht-digital-plugins', 'displayName': 'Tracht Digital Plugins', 'sources': [SOURCE]}
 
 
@@ -148,20 +148,20 @@ class CollectorTests(unittest.TestCase):
 
     def test_duplicate_plugin_identity_rejected(self):
         config = copy.deepcopy(CONFIG)
-        config['sources'].append({'repository': 'jtracht/another-plugin', 'path': 'plugin'})
+        config['sources'].append({'repository': 'Tracht-Digital-Solutions/another-plugin', 'path': 'plugin'})
         with self.assertRaisesRegex(ValueError, 'Duplicate plugin name'):
             m.collect(config, self.api)
 
     def test_topic_discovery_deduplicates_and_ignores_private_archived_forks(self):
         config = copy.deepcopy(CONFIG)
         config['sources'][0]['tag'] = 'v1.2.3'
-        config['discovery'] = {'owners': ['jtracht'], 'topic': 'chatgpt-plugin', 'path': 'plugin'}
+        config['discovery'] = {'owners': ['Tracht-Digital-Solutions'], 'topic': 'chatgpt-plugin', 'path': 'plugin'}
         self.api.repos = [
             {'full_name': SOURCE['repository'], 'topics': ['chatgpt-plugin']},
-            {'full_name': 'jtracht/private', 'topics': ['chatgpt-plugin'], 'private': True},
-            {'full_name': 'jtracht/archived', 'topics': ['chatgpt-plugin'], 'archived': True},
-            {'full_name': 'jtracht/fork', 'topics': ['chatgpt-plugin'], 'fork': True},
-            {'full_name': 'jtracht/unrelated', 'topics': []},
+            {'full_name': 'Tracht-Digital-Solutions/private', 'topics': ['chatgpt-plugin'], 'private': True},
+            {'full_name': 'Tracht-Digital-Solutions/archived', 'topics': ['chatgpt-plugin'], 'archived': True},
+            {'full_name': 'Tracht-Digital-Solutions/fork', 'topics': ['chatgpt-plugin'], 'fork': True},
+            {'full_name': 'Tracht-Digital-Solutions/unrelated', 'topics': []},
         ]
         self.assertEqual(m.config_sources(config, self.api), [dict(SOURCE, tag='v1.2.3')])
 
@@ -169,16 +169,16 @@ class CollectorTests(unittest.TestCase):
         class PagedAPI:
             def get(self, path):
                 if urllib.parse.parse_qs(urllib.parse.urlparse(path).query)['page'] == ['1']:
-                    return [{'full_name': f'jtracht/other-{i}', 'topics': []} for i in range(100)]
+                    return [{'full_name': f'Tracht-Digital-Solutions/other-{i}', 'topics': []} for i in range(100)]
                 return [{'full_name': SOURCE['repository'], 'topics': ['chatgpt-plugin']}]
-        config = dict(CONFIG, sources=[], discovery={'owners': ['jtracht']})
+        config = dict(CONFIG, sources=[], discovery={'owners': ['Tracht-Digital-Solutions']})
         self.assertEqual(m.config_sources(config, PagedAPI()), [SOURCE])
 
     def test_exclude_removes_discovered_repository(self):
-        config = dict(CONFIG, sources=[], exclude=['jtracht/Unwanted'], discovery={'owners': ['jtracht']})
+        config = dict(CONFIG, sources=[], exclude=['Tracht-Digital-Solutions/Unwanted'], discovery={'owners': ['Tracht-Digital-Solutions']})
         self.api.repos = [
             {'full_name': SOURCE['repository'], 'topics': ['chatgpt-plugin']},
-            {'full_name': 'jtracht/unwanted', 'topics': ['chatgpt-plugin']},
+            {'full_name': 'Tracht-Digital-Solutions/unwanted', 'topics': ['chatgpt-plugin']},
         ]
         self.assertEqual(m.config_sources(config, self.api), [SOURCE])
 
