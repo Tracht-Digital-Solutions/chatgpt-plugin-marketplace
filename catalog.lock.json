@@ -4,7 +4,7 @@
     {
       "name": "gitea-chatgpt-plugin",
       "version": "0.4.0",
-      "repository": "jtracht/gitea-chatgpt-plugin",
+      "repository": "Tracht-Digital-Solutions/gitea-chatgpt-plugin",
       "path": "plugin",
       "tag": "v0.4.0",
       "commit": "08789330e830b2cbb5104c7d4bccd64dc03add92",
